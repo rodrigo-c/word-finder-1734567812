@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .word {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #e9e9e9;
+            border-radius: 3px;
+        }
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Finder</h1>
+        <p>Enter strings separated by spaces to find English words containing all of them.</p>
+        
+        <form method="POST">
+            <input type="text" name="strings" placeholder="Enter strings (e.g., 'cat dog')" value="{{ ' '.join(strings) if strings else '' }}">
+            <button type="submit">Find Words</button>
+        </form>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if results %}
+        <div class="results">
+            <h2>Found {{ results|length }} words containing: {{ ' '.join(strings) }}</h2>
+            {% for word in results %}
+            <span class="word">{{ word }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
